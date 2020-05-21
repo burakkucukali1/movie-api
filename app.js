@@ -10,6 +10,7 @@ const index = require('./routes/index');
 const movie = require('./routes/movie');
 const director = require('./routes/director');
 
+
 const app = express();
 
 // view engine setup
@@ -18,6 +19,13 @@ app.set('view engine', 'jade');
 
 // MongoDb Connection
 connectDatabase();
+
+//Middleware
+const verifyToken = require('./middleware/verif-token')
+
+// Config
+const config = require('./config')
+app.set('api_secret_key', config.api_secret_key)
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -28,7 +36,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-// app.use('/api', verifyToken);
+app.use('/api', verifyToken);
 app.use('/api/movies', movie);
 app.use('/api/directors', director);
 
