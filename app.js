@@ -10,6 +10,7 @@ const index = require('./routes/index');
 const movie = require('./routes/movie');
 const director = require('./routes/director');
 
+var PORT = process.env.PORT || 5000;
 
 const app = express();
 
@@ -58,7 +59,7 @@ app.use((err, req, res, next) => {
      res.status(err.status || 500);
      res.json({ error: { message: err.message, code: err.code } });
 });
-const PORT = 3000
+
 app.listen(PORT, ()=> {
      console.log(`Server is listening on ${PORT}`) 
  });
